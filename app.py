@@ -13,15 +13,14 @@ FILM_OFFSET = 4
 
 @st.cache(persist=True)
 def load_data(film_num):
-    data = pd.read_csv('./Episode' + str(film_num) + '.txt', sep=" ", header=None)
+    data = pd.read_csv('./Data/Episode' + str(film_num) + '.txt', sep=" ", header=None)
     return data
 
 def write_wordcloud(data):
-    wordcloud = WordCloud(stopwords=STOPWORDS, background_color='white', height=640, width=800).generate(data)
+    wordcloud = WordCloud(stopwords=STOPWORDS, font_path='./StarJedi.ttf', background_color='white', height=640, width=800).generate(data)
     fig, ax = plt.subplots()
-    plt.imshow(wordcloud)
-    plt.xticks([])
-    plt.yticks([])
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis('off')
     st.pyplot(fig)
 
 st.title("Analysing who says what in the first three Star Wars films 🚀")
@@ -36,7 +35,7 @@ if(len(flim_choice) != 0):
 
     # Lines by speaker
     st.markdown("### How many lines does each character say?")
-    st.markdown("Only actual dialogue counts. Sorry Chewy and R2...")
+    st.markdown("Only actual dialogue counts. Sorry Chewy and Artoo...")
     lines_by_speaker = None
     for d, f in data:
         lines = d[1].value_counts()
