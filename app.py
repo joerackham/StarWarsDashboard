@@ -17,7 +17,7 @@ def load_data(film_num):
     return data
 
 def write_wordcloud(data):
-    wordcloud = WordCloud(stopwords=STOPWORDS, font_path='./StarJedi.ttf', background_color='white', height=640, width=800).generate(data)
+    wordcloud = WordCloud(stopwords=STOPWORDS, background_color='white', height=640, width=800).generate(data)
     fig, ax = plt.subplots()
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
