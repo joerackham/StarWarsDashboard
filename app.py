@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from PIL import Image
 
 FILMS = ["A New Hope", "The Empire Strikes Back", "Return of the Jedi"]
 FILM_OFFSET = 4
@@ -17,7 +18,7 @@ def load_data(film_num):
     return data
 
 def write_wordcloud(data):
-    wordcloud = WordCloud(stopwords=STOPWORDS, background_color='white', height=640, width=800).generate(data)
+    wordcloud = WordCloud(stopwords=STOPWORDS, font_path='./StarJedi.ttf', background_color='white', height=640, width=800).generate(data)
     fig, ax = plt.subplots()
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis('off')
@@ -98,3 +99,7 @@ if(len(flim_choice) != 0):
     sentiment_data = pd.DataFrame({'Character': characters, 'Average Line Length': char_line_length})
     fig = px.bar(sentiment_data, height=750, width=800, x='Character', y='Average Line Length')
     st.write(fig)
+else:
+    st.markdown("## Pick a film on the sidebar to get started...")
+    image = Image.open('./red-dotted-left-arrow.png')
+    st.image(image, width=250)
